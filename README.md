@@ -106,6 +106,11 @@ External volumes survive `docker compose down -v`. Do not delete them or
 run volume-pruning commands casually. Never run two MongoDB containers with
 the same data volume.
 
+## Host setup
+
+[`host/`](host/README.md) rebuilds this machine's Caddy, firewall and T3 Code
+service. It is machine-specific, unlike the services above.
+
 ## Ownership
 
 This repository owns shared services. Application agents should connect to
