@@ -35,6 +35,22 @@ services:
       timeout: 5s
       retries: 3
 
+  sqs:
+    image: softwaremill/elasticmq-native:1.7.1
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:9324:9324"
+    mem_limit: 256m
+    memswap_limit: 256m
+    volumes:
+      - ./elasticmq.conf:/opt/elasticmq.conf:ro
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:9324/?Action=ListQueues"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+
 # External volumes make data ownership independent of Compose.
 # Even "docker compose down -v" will not delete these volumes.
 volumes:
